@@ -1,0 +1,34 @@
+
+<!-- saved from url=(0042)http://www.cs.utep.edu/cheon/cs4330/howto/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css"></style><link rel="stylesheet" type="text/css" href="./files/prettify.css"></head><body>
+
+<h3><a name="orientation-changes"></a><a name="detect-orientation-change">
+Detecting screen orientation changes</a></h3><a name="detect-orientation-change">
+
+<p>
+To detect the layout changes from portrait to landscape (or vice
+versa),
+override the <code>onConfigurationChanged(Configuration)</code>
+method of the <code>Activity</code> class.
+</p>
+
+<pre class="prettyprint prettyprinted"><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onConfigurationChanged</span><span class="pun">(</span><span class="typ">Configuration</span><span class="pln"> newConfig</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="kwd">super</span><span class="pun">.</span><span class="pln">onConfigurationChanged</span><span class="pun">(</span><span class="pln">newConfig</span><span class="pun">);</span><span class="pln">
+  </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">newConfig</span><span class="pun">.</span><span class="pln">orientation </span><span class="pun">==</span><span class="pln"> </span><span class="typ">Configuration</span><span class="pun">.</span><span class="pln">ORIENTATION_LANDSCAPE</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+     </span><span class="pun">...</span><span class="pln"> landscape
+  </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">else</span><span class="pln"> </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">newConfig</span><span class="pun">.</span><span class="pln">orientation </span><span class="pun">==</span><span class="pln"> </span><span class="typ">Configuration</span><span class="pun">.</span><span class="pln">ORIENTATION_PORTRAIT</span><span class="pun">){</span><span class="pln">
+     </span><span class="pun">...</span><span class="pln"> portrait
+  </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></pre>
+
+One also have to edit the appropriate element in the manifest file 
+to include the <code>android:configChanges</code>.
+
+<pre class="prettyprint prettyprinted"><span class="tag">&lt;activity</span><span class="pln"> 
+  </span><span class="atn">android:name</span><span class="pun">=</span><span class="atv">".MainActivity"</span><span class="pln">
+  </span><span class="atn">android:configChanges</span><span class="pun">=</span><span class="atv">"orientation|keyboardHidden"</span><span class="pln">
+  </span><span class="atn">android:label</span><span class="pun">=</span><span class="atv">"@string/app_name"</span><span class="tag">&gt;</span><span class="pln">
+  ...
+</span><span class="tag">&lt;/activity&gt;</span></pre>
+
+</a><h3><a name="detect-orientation-change"></a></body></html>

@@ -1,0 +1,98 @@
+
+<!-- saved from url=(0042)http://www.cs.utep.edu/cheon/cs4330/howto/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css"></style><link rel="stylesheet" type="text/css" href="./files/prettify.css"></head><body>
+
+
+</a><h3><a name="dialog"></a><a name="progress-dialog">
+Displaying progress dialog
+</a></h3><a name="progress-dialog">
+
+<p>
+A progress dialog is a special dialog showing a progress indicator
+and an optional text message or view.
+A progress dialog can have either a simple <i>indeterminate</i> style
+or a more sophisticated <i>determinate</i> style (see below).
+In the indeterminate style, it displays a circular, spinning progressive
+bar while in the determinate style it displays a horizontal progress bar.
+</p>
+
+<p align="center">
+<img src="./files/fig-progress-dialog1.png" alt="Progress Dialog" align="middle">
+&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="./files/fig-progress-dialog2.png" alt="Progress Dialog" align="middle">
+<br><br>
+Indeterminate (left) and determinate (right) progress dialogs
+</p>
+
+<p>
+A progress dialog is commonly used to display the progress of a task
+that is taking up a lot of time, for example, a file download.
+</p>
+
+<p>
+Here's code snippet for creating and showing a indeterminate
+progress dialog.
+</p>
+
+<pre class="prettyprint prettyprinted"><span class="kwd">final</span><span class="pln"> </span><span class="typ">ProgressDialog</span><span class="pln"> dialog </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">ProgressDialog</span><span class="pun">(</span><span class="pln">context</span><span class="pun">);</span><span class="pln">
+dialog</span><span class="pun">.</span><span class="pln">setTitle</span><span class="pun">(</span><span class="str">"Working"</span><span class="pun">);</span><span class="pln">
+dialog</span><span class="pun">.</span><span class="pln">setMessage</span><span class="pun">(</span><span class="str">"Please wait ..."</span><span class="pun">);</span><span class="pln">
+dialog</span><span class="pun">.</span><span class="pln">setCancelable</span><span class="pun">(</span><span class="kwd">false</span><span class="pun">);</span><span class="pln">
+dialog</span><span class="pun">.</span><span class="pln">setIndeterminate</span><span class="pun">(</span><span class="kwd">true</span><span class="pun">);</span><span class="pln">
+dialog</span><span class="pun">.</span><span class="pln">show</span><span class="pun">();</span><span class="pln">
+
+</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Thread</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Runnable</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> run</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><span class="com">// do meaningful work, e.g., writing clean code</span><span class="pln">
+      </span><span class="typ">Thread</span><span class="pun">.</span><span class="pln">sleep</span><span class="pun">(</span><span class="lit">3000</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="typ">InterruptedException</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+    dialog</span><span class="pun">.</span><span class="pln">dismiss</span><span class="pun">();</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}).</span><span class="pln">start</span><span class="pun">();</span></pre>
+
+<p>
+The <code>dismiss</code> method remove a dialog from the screen
+and it is thread safe.
+</p>
+
+<p></p>
+In a determinate progress dialog, one can use such methods as
+<code>void incrementProgressBy(int)</code> to show the progress of a
+(background) task or work.
+<p></p>
+
+<pre class="prettyprint prettyprinted"><span class="kwd">final</span><span class="pln"> </span><span class="typ">ProgressDialog</span><span class="pln"> dialog </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">ProgressDialog</span><span class="pun">(</span><span class="pln">context</span><span class="pun">);</span><span class="pln">
+dialog</span><span class="pun">.</span><span class="pln">setTitle</span><span class="pun">(</span><span class="str">"Downloading Image"</span><span class="pun">);</span><span class="pln">
+dialog</span><span class="pun">.</span><span class="pln">setMessage</span><span class="pun">(</span><span class="str">"Download in progress ..."</span><span class="pun">);</span><span class="pln">
+dialog</span><span class="pun">.</span><span class="pln">setProgressStyle</span><span class="pun">(</span><span class="typ">ProgressDialog</span><span class="pun">.</span><span class="pln">STYLE_HORIZONTAL</span><span class="pun">);</span><span class="pln">
+dialog</span><span class="pun">.</span><span class="pln">setProgress</span><span class="pun">(</span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+dialog</span><span class="pun">.</span><span class="pln">setMax</span><span class="pun">(</span><span class="lit">100</span><span class="pun">);</span><span class="pln">
+dialog</span><span class="pun">.</span><span class="pln">show</span><span class="pun">();</span><span class="pln">
+
+</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Thread</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Runnable</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> run</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><span class="com">// consuming work here, e.g., downloading image</span><span class="pln">
+      </span><span class="kwd">for</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> i </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln"> i </span><span class="pun">&lt;</span><span class="pln"> </span><span class="lit">10</span><span class="pun">;</span><span class="pln"> i</span><span class="pun">++)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            </span><span class="typ">Thread</span><span class="pun">.</span><span class="pln">sleep</span><span class="pun">(</span><span class="lit">500</span><span class="pun">);</span><span class="pln">
+	    </span><span class="typ">MainActivity</span><span class="pun">.</span><span class="kwd">this</span><span class="pun">.</span><span class="pln">runOnUiThread</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Runnable</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+	      </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> run</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                dialog</span><span class="pun">.</span><span class="pln">incrementProgressBy</span><span class="pun">(</span><span class="lit">10</span><span class="pun">);</span><span class="pln">
+              </span><span class="pun">}</span><span class="pln">
+	    </span><span class="pun">});</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="typ">InterruptedException</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+    dialog</span><span class="pun">.</span><span class="pln">dismiss</span><span class="pun">();</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}).</span><span class="pln">start</span><span class="pun">();</span></pre>
+
+As shown above, the <code>incrementProgressBy(int)</code> method
+is not thread safe and thus must be run on the UI thread.
+The <code>runOnUiThread(Runnable)</code> method of the 
+<code>Activity</code> class runs the specified action on the
+UI thread.
+
+</a></body></html>

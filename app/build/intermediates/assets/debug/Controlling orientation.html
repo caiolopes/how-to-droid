@@ -1,0 +1,28 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css"></style><link rel="stylesheet" type="text/css" href="./files/prettify.css"></head><body>
+
+<h3><a name="controll-orientation"/>
+Controlling screen orientation</h3>
+
+To force the screen orientation of an activity,
+either use the <code>setRequestedOrientation(int)</code> method, e.g.,
+
+<pre class="prettyprint">
+public void onCreate(Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+  setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+  ...
+}
+</pre>
+
+or specify the <code>android:screenOrientation</code> attribute
+of an activity in the <code>AndroidManifest.xml</code> file, e.g.,
+
+<pre class="prettyprint">
+&lt;activity
+  android:name=".MainActivity"
+  android:label="@string/app_name"
+  android:screenOrientation="portrait"&gt;
+  ...
+&lt;&#47;activity&gt;
+</pre>
+</body></html>

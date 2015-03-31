@@ -1,0 +1,27 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css"></style><link rel="stylesheet" type="text/css" href="./files/prettify.css"></head><body>
+<a name="read-asset">
+<h3>Reading Asset File</a></h3><a name="read-asset">
+
+<p>
+Using the <code>AssetManager</code> class, you can access any files 
+contained in the <code>assets</code> directory or its subdirectories.
+An instance of the <code>AssetManager</code> class can be obtained
+by calling the <code>getAssets()</code> method on a context object 
+such as an activity.
+</p>
+
+<pre class="prettyprint prettyprinted"><span class="typ">AssetManager</span><span class="pln"> assetManager </span><span class="pun">=</span><span class="pln"> getAssets</span><span class="pun">();</span><span class="pln">
+</span><span class="typ">BufferedReader</span><span class="pln"> reader </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">BufferedReader</span><span class="pun">(</span><span class="pln">
+  </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">InputStreamReader</span><span class="pun">(</span><span class="pln">assetManager</span><span class="pun">.</span><span class="pln">open</span><span class="pun">(</span><span class="str">"myfile.txt"</span><span class="pun">)));</span><span class="pln">
+</span><span class="typ">String</span><span class="pln"> line </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">while</span><span class="pln"> </span><span class="pun">((</span><span class="pln">line </span><span class="pun">=</span><span class="pln"> reader</span><span class="pun">.</span><span class="pln">readLine</span><span class="pun">())</span><span class="pln"> </span><span class="pun">!=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="pun">...</span><span class="pln"> process line
+</span><span class="pun">}</span></pre>
+
+The URL syntax for assets is <code>file:///android_asset/<code>, e.g.,
+<code>file:///android_asset/myfile.txt</code>; note the use of
+three slashes.
+
+
+
+</code></code></a></body></html>

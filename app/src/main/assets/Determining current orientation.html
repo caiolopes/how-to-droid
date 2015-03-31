@@ -1,0 +1,19 @@
+
+<!-- saved from url=(0042)http://www.cs.utep.edu/cheon/cs4330/howto/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css"></style><link rel="stylesheet" type="text/css" href="./files/prettify.css"></head><body>
+
+<h3><a name="detect-orientation-change"></a><a name="#determine-orientation">
+Determining current screen orientation</a></h3><a name="#determine-orientation">
+
+To determine the current screen orientation, 
+use the <code>WindowManager</code> class to obtain the current display
+and compare the display width and height, e.g.,
+
+<pre class="prettyprint prettyprinted"><span class="typ">WindowManager</span><span class="pln"> wm </span><span class="pun">=</span><span class="pln"> getWindowManager</span><span class="pun">();</span><span class="pln">
+</span><span class="typ">Display</span><span class="pln"> d </span><span class="pun">=</span><span class="pln"> wm</span><span class="pun">.</span><span class="pln">getDefaultDisplay</span><span class="pun">();</span><span class="pln">
+</span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">d</span><span class="pun">.</span><span class="pln">getWidth</span><span class="pun">()</span><span class="pln"> </span><span class="pun">&gt;</span><span class="pln"> d</span><span class="pun">.</span><span class="pln">getHeight</span><span class="pun">())</span><span class="pln"> 
+   </span><span class="pun">...</span><span class="pln"> landscape
+</span><span class="kwd">else</span><span class="pln">
+   </span><span class="pun">...</span><span class="pln"> portrait</span></pre>
+
+</a><h3><a name="#determine-orientation"></a></body></html>

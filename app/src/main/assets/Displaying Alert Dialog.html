@@ -1,0 +1,75 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css"></style><link rel="stylesheet" type="text/css" href="./files/prettify.css"></head><body>
+
+<h3><a name="dialog">
+Displaying alert dialog
+</a></h3><a name="dialog">
+
+<p>
+A dialog is a small window that does not fill the screen and is
+normally used for modal events that require users to take an action
+before they can proceed (see below).
+</p>
+
+<p align="center">
+<img src="./files/fig-alert-dialog.png" alt="Alert Dialog" align="middle">
+</p>
+<!-- style="width:304px;height:228px"> -->
+
+<p>
+It is most often used to get a confirmation from a user by prompting 
+the user to make a decision or enter additional information.
+</p>
+
+<p>
+An alert dialog window can be created using the 
+<code>AlertDialog.Builder</code> class, and since Android 3.2
+(API level 13) the <code>show</code> method of the 
+<code>AlertDialog.Builder</code> or the <code>Dialog</code> classes
+can be used to display a dialog.
+</p>
+
+<pre class="prettyprint prettyprinted"><span class="typ">AlertDialog</span><span class="pun">.</span><span class="typ">Builder</span><span class="pln"> builder </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">AlertDialog</span><span class="pun">.</span><span class="typ">Builder</span><span class="pun">(</span><span class="pln">context</span><span class="pun">);</span><span class="pln">
+builder</span><span class="pun">.</span><span class="pln">setTitle</span><span class="pun">(</span><span class="str">"Dialog"</span><span class="pun">)</span><span class="pln">
+  </span><span class="pun">.</span><span class="pln">setMessage</span><span class="pun">(</span><span class="str">"This is my first dialog."</span><span class="pun">)</span><span class="pln">
+  </span><span class="pun">.</span><span class="pln">setPositiveButton</span><span class="pun">(</span><span class="str">"OK"</span><span class="pun">,</span><span class="pln">
+     </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">DialogInterface</span><span class="pun">.</span><span class="typ">OnClickListener</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+       </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onClick</span><span class="pun">(</span><span class="typ">DialogInterface</span><span class="pln"> dialog</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> which</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+         </span><span class="typ">Log</span><span class="pun">.</span><span class="pln">d</span><span class="pun">(</span><span class="str">"Dialog"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"OK button clicked!"</span><span class="pun">);</span><span class="pln">
+       </span><span class="pun">}</span><span class="pln">
+     </span><span class="pun">})</span><span class="pln">
+  </span><span class="pun">.</span><span class="pln">setNegativeButton</span><span class="pun">(</span><span class="str">"Cancel"</span><span class="pun">,</span><span class="pln">
+     </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">DialogInterface</span><span class="pun">.</span><span class="typ">OnClickListener</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+       </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onClick</span><span class="pun">(</span><span class="typ">DialogInterface</span><span class="pln"> dialog</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> which</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+         </span><span class="typ">Log</span><span class="pun">.</span><span class="pln">d</span><span class="pun">(</span><span class="str">"Dialog"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"Cancel button clicked!"</span><span class="pun">);</span><span class="pln">
+       </span><span class="pun">}</span><span class="pln">
+     </span><span class="pun">})</span><span class="pln">
+  </span><span class="pun">.</span><span class="pln">show</span><span class="pun">();</span></pre>
+
+or 
+
+<pre class="prettyprint prettyprinted"><span class="typ">AlertDialog</span><span class="pun">.</span><span class="typ">Builder</span><span class="pln"> builder </span><span class="pun">=</span><span class="pln"> </span><span class="pun">...</span><span class="pln">
+</span><span class="typ">AlertDialog</span><span class="pln"> dialog </span><span class="pun">=</span><span class="pln"> builder</span><span class="pun">.</span><span class="pln">create</span><span class="pun">();</span><span class="pln"> 
+dialog</span><span class="pun">.</span><span class="pln">show</span><span class="pun">();</span></pre>
+
+<p>
+The context argument to the builder constructor provides a reference
+to the application, e.g., parent or the  container of a UI component.
+An activity is a context, as the <code>Activity</code>class is an 
+indirect subclass of the <code>Context</code> class.
+The <code>getBaseContext</code> method of an activity can be
+used to get its base context, especially in a nested or inner class.
+</p>
+
+<b>Exercise:</b>
+Create a custom dialog by defining its UI in XML and attaching it.
+Hint: use the <code>setContentView</code> method of the dialog 
+to attach its custom UI, e.g.,
+
+<pre class="prettyprint prettyprinted"><span class="typ">Dialog</span><span class="pln"> dialog </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Dialog</span><span class="pun">(</span><span class="pln">context</span><span class="pun">);</span><span class="pln">
+dialog</span><span class="pun">.</span><span class="pln">setContentView</span><span class="pun">(</span><span class="pln">R</span><span class="pun">.</span><span class="pln">layout</span><span class="pun">.</span><span class="pln">my_custom_dialog</span><span class="pun">);</span><span class="pln">
+dialog</span><span class="pun">.</span><span class="pln">setTile</span><span class="pun">(</span><span class="str">"Custom Dialog"</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">...</span><span class="pln">
+dialog</span><span class="pun">.</span><span class="pln">show</span><span class="pun">();</span></pre>
+
+
+</a></body></html>

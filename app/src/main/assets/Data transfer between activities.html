@@ -1,0 +1,265 @@
+<html>
+<head>
+</head>
+<body>
+         <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title"><a name="intentdatatransfer"></a>Data transfer between activities
+                     </h2>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title"><a name="intentdatatransfer_accessdata"></a>Data transfer to the target component
+                        </h3>
+                     </div>
+                  </div>
+               </div>
+               <p>
+                  An intent
+                  contains certain header data, e.g., the desired action, the
+                  type, etc. Optionally an intent can also contain additional data based
+                  on an instance of the
+                  <code class="code">Bundle</code>
+                  class which can be retrieved from the intent via the
+                  <code class="code">getExtras()</code>
+                  method.
+                  
+               </p>
+               <p>
+                  You can also add data directly to the
+                  <code class="code">Bundle</code>
+                  via the overloaded
+                  <code class="code">putExtra()</code>
+                  methods of the
+                  <code class="code">Intent</code>
+                  objects. Extras are key/value pairs. The key is always of type
+                  <code class="code">String</code>. As
+                  value you can use the primitive data types (<code class="code">int</code>, <code class="code">float</code>, ...) plus
+                  objects of type
+                  <code class="code">String</code>,
+                  <code class="code">Bundle</code>, <code class="code">Parceable</code> and <code class="code">Serializable</code>.
+                  
+               </p>
+               <p>
+                  The
+                  receiving
+                  component can
+                  access this
+                  information via the
+                  <code class="code">getAction()</code>
+                  and
+                  <code class="code">getData()</code>
+                  methods on the
+                  <code class="code">Intent</code>
+                  object. This
+                  <code class="code">Intent</code>
+                  object can be retrieved via the
+                  <code class="code">getIntent()</code>
+                  method.
+                  
+               </p>
+               <p>
+                  The component which receives the
+                  intent
+                  can
+                  use the
+                  <code class="code">getIntent().getExtras()</code>
+                  method call to get the extra data. That is demonstrated in the
+                  following code snippet.
+                  
+               </p>
+               <p>
+                  
+               </p><pre class="programlisting">Bundle extras = getIntent().getExtras();
+<span class="hl-keyword">if</span> (extras == null) {
+  <span class="hl-keyword">return</span>;
+}
+<em class="hl-comment" style="color: #080">// get data via the key</em>
+String value1 = extras.getString(Intent.EXTRA_TEXT);
+<span class="hl-keyword">if</span> (value1 != null) {
+  <em class="hl-comment" style="color: #080">// do something with the data</em>
+} </pre><p>
+                  
+               </p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title"><a name="overview_shareintent"></a>Example: Using the share intent
+                        </h3>
+                     </div>
+                  </div>
+               </div>
+               <p>
+                  Lots of Android applications allow you to share some data with
+                  other
+                  people, e.g., the Facebook, G+, Gmail and Twitter application.
+                  You can send data to one of these
+                  components. The following code
+                  snippet demonstrates the usage of such an intent within your
+                  application.
+                  
+               </p>
+               <p>
+                  
+               </p><pre class="programlisting"><em class="hl-comment" style="color: #080">// this runs, for example, after a button click</em>
+Intent intent = <span class="hl-keyword">new</span> Intent(Intent.ACTION_SEND);
+intent.setType(<span class="hl-string" style="color:blue">"text/plain"</span>);
+intent.putExtra(android.content.Intent.EXTRA_TEXT, <span class="hl-string" style="color:blue">"News for you!"</span>);
+startActivity(intent); </pre><p>
+                  
+               </p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title"><a name="usingintents_sub"></a>Retrieving result data from a sub-activity
+                        </h3>
+                     </div>
+                  </div>
+               </div>
+               <p>
+                  An
+                  activity
+                  can be closed via the back button on the phone.
+                  In this case
+                  the
+                  <code class="code">finish()</code>
+                  method is performed.
+                  If the
+                  activity
+                  was started with the
+                  <code class="code">startActivity(Intent)</code>
+                  method call, the caller requires no result or feedback from the
+                  activity which now is closed.
+                  
+               </p>
+               <p>
+                  If you start the activity with the
+                  <code class="code">startActivityForResult()</code>
+                  method call, you expect feedback from the sub-activity. Once the
+                  sub-activity
+                  ends,
+                  the
+                  <code class="code">onActivityResult()</code>
+                  method on the sub-activity
+                  is called and you can
+                  perform
+                  actions
+                  based on
+                  the
+                  result.
+                  
+               </p>
+               <p>
+                  In the
+                  <code class="code">startActivityForResult()</code>
+                  method call you can specify a result code to determine
+                  which activity
+                  you started. This result code is returned to you. The started
+                  activity can also set a result code which the caller can use to
+                  determine if the activity was canceled or not.
+                  
+               </p>
+
+
+               <p>
+                  
+               </p>
+
+               <p>
+                  The sub-activity uses the
+                  <code class="code">finish()</code>
+                  method to create a new intent and to put data into it.
+                  It also sets a
+                  result via the
+                  <code class="code">setResult()</code>
+                  method call.
+                  
+               </p>
+               <p>
+                  The following example code demonstrates how to trigger an
+                  <em class="wordasword">intent</em>
+                  with the
+                  <code class="code">startActivityForResult()</code>
+                  method.
+                  
+               </p>
+               <p>
+                  
+               </p><pre class="programlisting"><span class="hl-keyword">public</span> <span class="hl-keyword">void</span> onClick(View view) {
+  Intent i = <span class="hl-keyword">new</span> Intent(<span class="hl-keyword">this</span>, ActivityTwo.<span class="hl-keyword">class</span>);
+  i.putExtra(<span class="hl-string" style="color:blue">"Value1"</span>, <span class="hl-string" style="color:blue">"This value one for ActivityTwo "</span>);
+  i.putExtra(<span class="hl-string" style="color:blue">"Value2"</span>, <span class="hl-string" style="color:blue">"This value two ActivityTwo"</span>);
+  <em class="hl-comment" style="color: #080">// set the request code to any code you like,</em>
+  <em class="hl-comment" style="color: #080">// you can identify the callback via this code</em>
+  startActivityForResult(i, REQUEST_CODE);
+} </pre><p>
+                  
+               </p>
+               <p>
+                  If you use the
+                  <code class="code">startActivityForResult()</code>
+                  method, then the started
+                  <em class="wordasword">activity</em>
+                  is called a
+                  <em class="wordasword">sub-activity</em>.
+                  
+               </p>
+               <p>
+                  If the sub-activity is finished,
+                  it can send data back to its caller
+                  via an <em class="wordasword">Intent</em>.
+                  This is done in the
+                  <code class="code">finish()</code>
+                  method.
+                  
+               </p>
+               <p>
+                  
+               </p><pre class="programlisting"><em><span class="hl-annotation" style="color: gray">@Override</span></em>
+<span class="hl-keyword">public</span> <span class="hl-keyword">void</span> finish() {
+  <em class="hl-comment" style="color: #080">// Prepare data intent </em>
+  Intent data = <span class="hl-keyword">new</span> Intent();
+  data.putExtra(<span class="hl-string" style="color:blue">"returnKey1"</span>, <span class="hl-string" style="color:blue">"Swinging on a star. "</span>);
+  data.putExtra(<span class="hl-string" style="color:blue">"returnKey2"</span>, <span class="hl-string" style="color:blue">"You could be better then you are. "</span>);
+  <em class="hl-comment" style="color: #080">// Activity finished ok, return the data</em>
+  setResult(RESULT_OK, data);
+  <span class="hl-keyword">super</span>.finish();
+} </pre><p>
+                  
+               </p>
+               <p>
+                  Once the sub-activity
+                  finishes, the
+                  <code class="code">onActivityResult()</code>
+                  method in the calling
+                  <em class="wordasword">activity</em>
+                  is called.
+                  
+               </p>
+               <p>
+                  
+               </p><pre class="programlisting"><em><span class="hl-annotation" style="color: gray">@Override</span></em>
+<span class="hl-keyword">protected</span> <span class="hl-keyword">void</span> onActivityResult(<span class="hl-keyword">int</span> requestCode, <span class="hl-keyword">int</span> resultCode, Intent data) {
+  <span class="hl-keyword">if</span> (resultCode == RESULT_OK &amp;&amp; requestCode == REQUEST_CODE) {
+    <span class="hl-keyword">if</span> (data.hasExtra(<span class="hl-string" style="color:blue">"returnKey1"</span>)) {
+      Toast.makeText(<span class="hl-keyword">this</span>, data.getExtras().getString(<span class="hl-string" style="color:blue">"returnKey1"</span>),
+        Toast.LENGTH_SHORT).show();
+    }
+  }
+} </pre><p>
+                  
+               </p>
+            </div>
+         </div>
+</body>
+</html>

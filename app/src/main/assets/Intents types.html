@@ -1,0 +1,144 @@
+<html>
+<head>
+</head>
+<body>
+        <div class="section">
+            <div class="titlepage">
+               <div>
+                  <div>
+                     <h2 class="title"><a name="intenttypes"></a>Intents types
+                     </h2>
+                  </div>
+               </div>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title"><a name="intenttypes_classification"></a>Different types of intents
+                        </h3>
+                     </div>
+                  </div>
+               </div>
+               <p>
+                  Android supports explicit
+                  and implicit intents. 
+                  
+               </p>
+
+               <p>You typically use explicit intents for starting activities within your own application. At that point you know exactly which activity you want to start, so there is no reason to go through the extra work of setting up the implicit intents.</p>
+               <p>
+                  An application can define the target component directly in the intent
+                  (<em class="wordasword">explicit intent</em>) or
+                  ask the Android
+                  system to evaluate registered components based on
+                  the
+                  intent
+                  data
+                  (<em class="wordasword">implicit intents</em>).
+                  
+               </p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title"><a name="intents_explicit"></a>Explicit Intents
+                        </h3>
+                     </div>
+                  </div>
+               </div>
+               <p>
+                  Explicit intents
+                  explicitly define the component which should be called by the
+                  Android
+                  system, by using the Java class as identifier.
+                  
+               </p>
+               <p>
+                  The following shows how to create an
+                  explicit intent
+                  and send it to the Android system.
+                  
+                  If the class specified in the
+                  intent represents an activity,
+                  the Android system starts it.
+                  
+               </p>
+               <p>
+                  
+               </p><pre class="programlisting">Intent intent = <span class="hl-keyword">new</span> Intent(<span class="hl-keyword">this</span>, SubActivity.<span class="hl-keyword">class</span>);
+intent.putExtra(<span class="hl-string" style="color:blue">"Value1"</span>, <span class="hl-string" style="color:blue">"This value one for SubActivity "</span>);
+intent.putExtra(<span class="hl-string" style="color:blue">"Value2"</span>, <span class="hl-string" style="color:blue">"This value two SubActivity"</span>); </pre><p>
+                  
+               </p>
+               <p>
+                  Explicit intents
+                  are typically used within on application as
+                  the
+                  classes in an
+                  application are controlled by the application
+                  developer.
+                  
+               </p>
+            </div>
+            <div class="section">
+               <div class="titlepage">
+                  <div>
+                     <div>
+                        <h3 class="title"><a name="intents_implicit"></a>Implicit Intents
+                        </h3>
+                     </div>
+                  </div>
+               </div>
+               <p>
+                  Implicit intents
+                  specify the
+                  action which should be
+                  performed and optionally
+                  data which
+                  provides content for the action.
+                  
+               </p>
+               <p>
+                  For example, the following tells the Android system to view a
+                  webpage.
+                  All installed web browsers should be registered to the
+                  corresponding intent data via an intent filter.
+                  
+               </p>
+               <p>
+                  
+               </p><pre class="programlisting">Intent intent = <span class="hl-keyword">new</span> Intent(Intent.ACTION_VIEW, Uri.parse(<span class="hl-string" style="color:blue">"http://cs.utep.edu"</span>));
+startActivity(intent); </pre><p>
+                  
+               </p>
+               <p>
+                  If
+                  an implicit intent is sent to the Android system, it searches
+                  for all components which
+                  are registered for the specific action and
+                  the fitting data type.
+                  
+               </p>
+               <p>
+                  If only one
+                  component is found, Android starts this component
+                  directly.
+                  If several
+                  components are identified by the Android system,
+                  the user
+                  will get a
+                  selection dialog and can decide which component
+                  should be
+                  used for
+                  the intent.
+                  
+               </p>
+               <p>
+                  A component can register itself for actions.                  
+               </p>
+            </div>
+         </div>
+</body>
+</html>
